@@ -1,33 +1,34 @@
 <template>
-  <div>
-    <Nuxt />
+  <div class="main">
+    <Nav />
+    <div class="main-content">
+      <Nuxt />
+    </div>
   </div>
 </template>
 
-<style>
-html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+import Nav from '../components/Nav'
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
+@Component({
+  components: { Nav }
+})
+export default class DefaultLayout extends Vue {
+}
+</script>
+
+<style lang="postcss">
+@tailwind base;
+@tailwind utilities;
+
+@layer base {
+  .main {
+    @apply min-h-screen text-white flex flex-col
+  }
+
+  .main-content {
+    @apply flex justify-center text-white flex-grow
+  }
 }
 </style>

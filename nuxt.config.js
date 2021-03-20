@@ -2,6 +2,11 @@ export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
+  tailwindcss: {
+    jit: true,
+    darkMode: 'media'
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'shopping-list-fe',

@@ -1,5 +1,7 @@
 export const state = () => ({
-  loggedIn: true
+  loggedIn: false,
+  accessToken: localStorage.getItem('accessToken'),
+  refreshToken: localStorage.getItem('refreshToken')
 })
 
 export type RootState = ReturnType<typeof state>
