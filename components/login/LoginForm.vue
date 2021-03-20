@@ -20,8 +20,8 @@ import Button from '~/components/forms/Button.vue'
   components: { Button, FormField }
 })
 export default class LoginForm extends Vue {
-  email: string = null
-  password: string = null
+  email?: string
+  password?: string
 
   @Emit()
   public submitted (e: Event) {

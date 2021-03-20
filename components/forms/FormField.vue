@@ -14,10 +14,10 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 @Component
 export default class FormField extends Vue {
   @Prop({ default: () => '' })
-  placeholder: string;
+  placeholder?: string
 
   @Prop({ default: () => 'text' })
-  type: string
+  type?: string
 }
 </script>
 

@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import Nav from '../components/Nav'
+import Nav from '../components/Nav.vue'
 
 @Component({
   components: { Nav }

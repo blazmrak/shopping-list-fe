@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import LoginForm from '../components/login/LoginForm'
+import LoginForm from '../components/login/LoginForm.vue'
 
 @Component({
   components: { LoginForm }

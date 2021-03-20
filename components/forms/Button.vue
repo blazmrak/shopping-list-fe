@@ -10,7 +10,7 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 @Component
 export default class Button extends Vue {
   @Prop({ default: () => 'Button' })
-  text: string
+  text: string | undefined
 }
 </script>
 
