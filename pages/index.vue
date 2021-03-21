@@ -1,15 +1,14 @@
 <template>
-  <div class="container">
+  <div>
     home
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import auth from '~/middleware/auth'
 
 @Component({
-  middleware: [auth]
+  middleware: ['auth']
 })
 export default class Index extends Vue {
 

@@ -1,11 +1,11 @@
 <template>
-  <div class="login-container">
-    <div class="login-content">
-      <div class="login-img">
+  <div class="flex justify-center">
+    <div class="flex flex-col content-start w-3/4 max-w-md mt-16">
+      <div class="w-full">
         <img src="/img/login/login2.png">
       </div>
-      <div class="form-container">
-        <LoginForm @submitted="form" />
+      <div>
+        <LoginForm @submitted="login" />
       </div>
     </div>
   </div>
@@ -19,27 +19,17 @@ import LoginForm from '../components/login/LoginForm.vue'
   components: { LoginForm }
 })
 export default class Login extends Vue {
-  formValue: any = null
-
-  form (value: any) {
-    this.formValue = value
+  async login (value: any) {
+    try {
+      await this.$auth.loginWith('local', { data: value })
+      this.$toast.success('Logged in successfully', { duration: 1000, position: 'top-center' })
+    } catch (e) {
+      this.$toast.error('Wrong username or password', { duration: 1500, position: 'bottom-center' })
+    }
   }
 }
 </script>
 
 <style scoped>
-.form-container {
-}
 
-.login-content {
-  @apply w-3/4 max-w-md flex flex-col content-start mt-16
-}
-
-.login-container {
-  @apply flex justify-center content-center
-}
-
-.login-img {
-  @apply w-full
-}
 </style>
