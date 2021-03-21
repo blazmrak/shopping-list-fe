@@ -1,9 +1,10 @@
 <template>
-  <div class="main">
+  <div class="flex flex-col min-h-screen text-white">
     <Nav />
-    <div class="main-content">
+    <div class="flex-auto flex justify-center text-white">
       <Nuxt />
     </div>
+    <div class="flex-none bg-purple-600 h-6" />
   </div>
 </template>
 
@@ -19,16 +20,5 @@ export default class DefaultLayout extends Vue {
 </script>
 
 <style lang="postcss">
-@tailwind base;
-@tailwind utilities;
 
-@layer base {
-  .main {
-    @apply min-h-screen text-white flex flex-col
-  }
-
-  .main-content {
-    @apply flex justify-center text-white flex-grow
-  }
-}
 </style>

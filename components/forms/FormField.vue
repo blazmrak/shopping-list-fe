@@ -1,18 +1,23 @@
 <template>
   <div>
     <input
-      class="text-input"
+      class="px-2 py-1 border-2 rounded outline-none text-black w-full"
       :type="type"
       :placeholder="placeholder"
+      :value="value"
+      @input="$emit('input', $event.target.value)"
     >
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class FormField extends Vue {
+  @Prop()
+  value?: string
+
   @Prop({ default: () => '' })
   placeholder?: string
 
@@ -22,11 +27,5 @@ export default class FormField extends Vue {
 </script>
 
 <style lang="postcss" scoped>
-@tailwind components;
 
-@layer components {
-  .text-input {
-    @apply px-2 py-1 border-2 rounded outline-none text-black w-full
-  }
-}
 </style>

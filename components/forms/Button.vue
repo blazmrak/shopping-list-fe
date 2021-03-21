@@ -1,5 +1,5 @@
 <template>
-  <button class="btn">
+  <button class="text-center rounded py-1">
     {{ text }}
   </button>
 </template>
@@ -15,7 +15,5 @@ export default class Button extends Vue {
 </script>
 
 <style lang="postcss" scoped>
-.btn {
-  @apply text-center rounded py-1
-}
+
 </style>
