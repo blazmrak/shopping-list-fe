@@ -1,10 +1,10 @@
 <template>
-  <div class="login-form-container">
-    <form class="login-form" @submit="submitted">
-      <FormField placeholder="Email" class="login-form-field" />
-      <FormField type="password" placeholder="Password" class="login-form-field" />
-      <div class="login-buttons">
-        <Button class="login-btn" text="Sign in" />
+  <div class="flex justify-center">
+    <form class="flex flex-col space-y-3 w-full" @submit.prevent="submitted">
+      <FormField v-model="email" placeholder="Email" />
+      <FormField v-model="password" type="password" placeholder="Password" />
+      <div class="flex justify-center">
+        <Button class="bg-purple-600 w-16" text="Sign in" />
       </div>
       <input type="submit" class="hidden">
     </form>
@@ -20,12 +20,11 @@ import Button from '~/components/forms/Button.vue'
   components: { Button, FormField }
 })
 export default class LoginForm extends Vue {
-  email?: string
-  password?: string
+  email?: string = ''
+  password?: string = ''
 
   @Emit()
-  public submitted (e: Event) {
-    e.preventDefault()
+  public submitted () {
     return {
       email: this.email,
       password: this.password
@@ -36,23 +35,4 @@ export default class LoginForm extends Vue {
 
 <style lang="postcss" scoped>
 
-.login-form-container {
-  @apply flex justify-center
-}
-
-.login-form {
-  @apply w-full
-}
-
-.login-form-field {
-  @apply mb-4
-}
-
-.login-buttons {
-  @apply flex justify-center
-}
-
-.login-btn {
-  @apply bg-purple-600 w-16
-}
 </style>
