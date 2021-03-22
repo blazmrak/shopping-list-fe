@@ -90,12 +90,13 @@ export default {
           maxAge: 60 * 60 * 24 * 30
         },
         user: {
-          property: false
+          property: false,
+          autoFetch: true
         },
         endpoints: {
           login: { headers: { 'Content-Type': 'application/json' }, url: '/api/auth/login', method: 'post' },
           refresh: { url: '/api/auth/refresh', method: 'post' },
-          user: { url: '/api/auth/user', method: 'get' },
+          user: { url: '/api/users/me', method: 'get', userProperty: false },
           logout: { url: '/api/auth/logout', method: 'post' }
         }
       }
