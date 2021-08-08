@@ -1,5 +1,6 @@
-export const state = () => ({
+import Vuex, { Store } from 'vuex'
+import { Vue } from 'nuxt-property-decorator'
 
-})
+Vue.use(Vuex)
 
-export type RootState = ReturnType<typeof state>
+export const store = new Store({})

@@ -7,9 +7,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
-@Component({
-  middleware: ['auth']
-})
+@Component
 export default class Index extends Vue {
 
 }

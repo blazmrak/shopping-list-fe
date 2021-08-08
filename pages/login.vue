@@ -1,14 +1,18 @@
 <template>
-  <div class="flex justify-center">
-    <div class="flex flex-col content-start w-3/4 max-w-md mt-16">
-      <div class="w-full">
-        <img src="/img/login/login2.png">
-      </div>
-      <div>
+  <v-col>
+    <v-row justify="center">
+      <v-col cols="4">
+        <v-img
+          lazy-src="/img/login/login2.png"
+        />
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col lg="4" md="6" sm="12">
         <LoginForm @submitted="login" />
-      </div>
-    </div>
-  </div>
+      </v-col>
+    </v-row>
+  </v-col>
 </template>
 
 <script lang="ts">
@@ -16,15 +20,23 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import LoginForm from '../components/login/LoginForm.vue'
 
 @Component({
+  middleware: 'auth',
+  auth: 'guest',
   components: { LoginForm }
 })
 export default class Login extends Vue {
-  async login (value: any) {
+  async login (form: { email: string, password: string }) {
     try {
-      await this.$auth.loginWith('local', { data: value })
+      await this.$auth.loginWith('local', { data: { username: form.email, password: form.password } })
       this.$toast.success('Logged in successfully', { duration: 1000, position: 'top-center' })
     } catch (e) {
-      this.$toast.error('Wrong username or password', { duration: 1500, position: 'bottom-center' })
+      if (e.response?.data?.code === 'login_invalid_credentials') {
+        this.$toast.error('Wrong username or password', { duration: 1500, position: 'bottom-center' })
+      } else if (e.response?.status === 504) {
+        this.$toast.error('Server is not available', { duration: 1500, position: 'bottom-center' })
+      } else {
+        this.$toast.error('Something went wrong', { duration: 1500, position: 'bottom-center' })
+      }
     }
   }
 }

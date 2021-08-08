@@ -1,23 +1,31 @@
 <template>
-  <div class="flex justify-center">
-    <form class="flex flex-col space-y-3 w-full" @submit.prevent="submitted">
-      <FormField v-model="email" placeholder="Email" />
-      <FormField v-model="password" type="password" placeholder="Password" />
-      <div class="flex justify-center">
-        <Button class="bg-purple-600 w-16" text="Sign in" />
-      </div>
-      <input type="submit" class="hidden">
-    </form>
-  </div>
+  <v-form
+    ref="form"
+    class="content-fill"
+    lazy-validation
+    @submit.prevent="submitted"
+  >
+    <v-text-field
+      v-model="email"
+      label="Email"
+      required
+    />
+    <v-text-field
+      v-model="password"
+      type="password"
+      label="Password"
+      required
+    />
+    <v-btn type="submit">
+      Log in
+    </v-btn>
+  </v-form>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from 'nuxt-property-decorator'
-import FormField from '~/components/forms/FormField.vue'
-import Button from '~/components/forms/Button.vue'
+import { Component, Emit, Vue } from 'nuxt-property-decorator'
 
 @Component({
-  components: { Button, FormField }
 })
 export default class LoginForm extends Vue {
   email?: string = ''
@@ -33,6 +41,6 @@ export default class LoginForm extends Vue {
 }
 </script>
 
-<style lang="postcss" scoped>
+<style lang="css" scoped>
 
 </style>

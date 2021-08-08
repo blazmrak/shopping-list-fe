@@ -1,4 +1,4 @@
-export default {
+const config = {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -31,7 +31,9 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    '@/plugins/axios-accessor'
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -40,8 +42,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
-    // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/vuetify'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -66,9 +67,8 @@ export default {
 
   proxy: {
     '/api/': {
-      target: process.env.API_BASE_URL || 'http://localhost:8080/',
-      pathRewrite: { '^/api/': process.env.API_VERSION || '/v1/' },
-      changeOrigin: true
+      target: process.env.API_BASE_URL || 'http://localhost:8080/shopping-list/',
+      pathRewrite: { '^/api/': process.env.API_VERSION || '/v1/' }
     }
   },
 
@@ -85,7 +85,7 @@ export default {
           maxAge: 1800
         },
         refreshToken: {
-          property: 'refreshToken',
+          property: 'accessToken',
           data: 'refreshToken',
           maxAge: 60 * 60 * 24 * 30
         },
@@ -94,18 +94,26 @@ export default {
           autoFetch: true
         },
         endpoints: {
-          login: { headers: { 'Content-Type': 'application/json' }, url: '/api/auth/login', method: 'post' },
-          refresh: { url: '/api/auth/refresh', method: 'post' },
+          login: {
+            headers: { 'Content-Type': 'application/json' },
+            url: '/api/users/login',
+            method: 'post'
+          },
+          refresh: { url: '/api/users/login', method: 'post' },
           user: { url: '/api/users/me', method: 'get', userProperty: false },
           logout: { url: '/api/auth/logout', method: 'post' }
         }
       }
     },
     redirect: {
-      login: '/login',
+      login: '/login/',
       logout: '/',
-      callback: '/login',
-      home: '/'
+      home: '/lists/'
     }
+  },
+  vuetify: {
+    treeShake: true
   }
 }
+
+export default config

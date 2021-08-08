@@ -1,11 +1,13 @@
 <template>
   <div class="flex justify-center">
     <form class="flex flex-col space-y-3 w-full" @submit.prevent="submitted">
-      <FormField v-model="email" placeholder="Email" />
-      <FormField v-model="password" type="password" placeholder="Password" />
-      <FormField v-model="confirmPassword" type="password" placeholder="Confirm Password" />
+      <v-input v-model="email" placeholder="Email" />
+      <v-input v-model="password" type="password" placeholder="Password" />
+      <v-input v-model="confirmPassword" type="password" placeholder="Confirm Password" />
       <div class="flex justify-center">
-        <Button class="bg-purple-600 w-16" text="Sign up" />
+        <v-btn class="bg-purple-600 w-16">
+          Register
+        </v-btn>
       </div>
       <input type="submit" class="hidden">
     </form>
@@ -13,12 +15,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from 'nuxt-property-decorator'
-import FormField from '~/components/forms/FormField.vue'
-import Button from '~/components/forms/Button.vue'
+
+import { Component, Emit, Vue } from 'nuxt-property-decorator'
 
 @Component({
-  components: { Button, FormField }
 })
 export default class RegisterForm extends Vue {
   email?: string = ''
@@ -35,6 +35,6 @@ export default class RegisterForm extends Vue {
 }
 </script>
 
-<style lang="postcss" scoped>
+<style lang="css" scoped>
 
 </style>

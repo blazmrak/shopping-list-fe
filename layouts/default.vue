@@ -1,24 +1,38 @@
 <template>
-  <div class="flex flex-col min-h-screen text-white">
-    <Nav />
-    <div class="flex-auto flex justify-center text-white">
-      <Nuxt />
-    </div>
-    <div class="flex-none bg-purple-600 h-6" />
-  </div>
+  <v-app>
+    <Menu :items="menuItems" />
+
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="toggle()" />
+      <v-app-bar-title>Kostko</v-app-bar-title>
+    </v-app-bar>
+
+    <v-main>
+      <v-container>
+        <Nuxt />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import Nav from '../components/Nav.vue'
+import Menu, { MenuItem } from '~/components/navigation/Menu.vue'
+import { menuStore } from '~/store/menu'
 
 @Component({
-  components: { Nav }
+  components: { Menu }
 })
 export default class DefaultLayout extends Vue {
+  menuItems: MenuItem[] = [
+    { title: 'Lists', icon: 'mdi-format-list-bulleted', roles: ['user'], path: 'lists' }
+  ]
+
+  toggle () {
+    menuStore.toggle()
+  }
 }
 </script>
 
-<style lang="postcss">
-
+<style lang="css">
 </style>

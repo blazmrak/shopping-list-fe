@@ -16,6 +16,8 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import RegisterForm from '~/components/register/RegisterForm.vue'
 
 @Component({
+  middleware: 'auth',
+  auth: 'guest',
   components: { RegisterForm }
 })
 export default class Register extends Vue {
