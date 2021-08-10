@@ -9,13 +9,16 @@ import {
 import { $axios } from '~/assets/api'
 import { store } from '~/store'
 
-export interface ListItem {
-  id: string
-  listId: string
-  itemId: string
+export interface ListItemCreate {
+  itemId: string,
   quantity?: number
   cost?: number,
-  boughtAt?: Date,
+}
+
+export interface ListItem extends ListItemCreate{
+  id: string
+  listId: string
+  boughtAt?: Date | null,
   status: string
 }
 
@@ -44,7 +47,7 @@ class ListItemStore extends VuexModule {
   }
 
   @MutationAction({ mutate: ['_listItems'] })
-  async fetchListItems (listId: string) {
+  async getAll (listId: string) {
     const listItems = (await $axios.get(`/api/shopping-lists/${listId}/list-items`)).data
 
     return {
@@ -52,8 +55,8 @@ class ListItemStore extends VuexModule {
     }
   }
 
-  @VuexAction({ commit: 'updateListItem', rawError: false })
-  async updateItem (params: {listId: string, listItemId: string, listItem: ListItem}) {
+  @VuexAction({ commit: 'updateLocal', rawError: false })
+  async update (params: {listId: string, listItemId: string, listItem: ListItem}) {
     const response = await $axios.put(
       `/api/shopping-lists/${params.listId}/list-items/${params.listItemId}`,
       ListItemStore.mapToApi(params.listItem)
@@ -62,8 +65,8 @@ class ListItemStore extends VuexModule {
     return response.data
   }
 
-  @VuexAction({ commit: 'addListItem', rawError: false })
-  async createNewItem (params: {listId: string, listItem: ListItem}) {
+  @VuexAction({ commit: 'addLocal', rawError: false })
+  async create (params: {listId: string, listItem: ListItem}) {
     const response = await $axios.post(
       `/api/shopping-lists/${params.listId}/list-items`,
       ListItemStore.mapToApi(params.listItem)
@@ -72,13 +75,22 @@ class ListItemStore extends VuexModule {
     return response.data
   }
 
+  @VuexAction({ commit: 'deleteLocal', rawError: false })
+  async delete (params: {listId: string, listItemId: string }) {
+    await $axios.delete(
+      `/api/shopping-lists/${params.listId}/list-items/${params.listItemId}`
+    )
+
+    return params.listItemId
+  }
+
   @VuexMutation
   setLists (listItems: ViewListItem[]) {
     this._listItems = listItems
   }
 
   @VuexMutation
-  updateListItem (listItem: ViewListItem) {
+  updateLocal (listItem: ViewListItem) {
     this._listItems = this._listItems.map((item) => {
       if (item.id === listItem.id) { return ListItemStore.mapToDomain(listItem) }
 
@@ -87,8 +99,13 @@ class ListItemStore extends VuexModule {
   }
 
   @VuexMutation
-  addListItem (listItem: ViewListItem) {
+  addLocal (listItem: ViewListItem) {
     this._listItems.push(listItem)
+  }
+
+  @VuexMutation
+  deleteLocal (listItemId: string) {
+    this._listItems = this._listItems.filter(listItem => listItem.id !== listItemId)
   }
 
   private static mapToDomain (listItem: ListItem) {
