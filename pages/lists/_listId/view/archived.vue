@@ -49,6 +49,8 @@ export default class Archived extends Vue {
   }
 
   formatDate (date?: Date) {
+    if (!date) { return '' }
+
     return format(date.getTime(), 'dd. MM. yyyy')
   }
 
@@ -58,7 +60,7 @@ export default class Archived extends Vue {
       status: 'bought'
     }
 
-    listItemStore.updateItem({ listId: this.$route.params.listId, listItemId, listItem: updatedItem })
+    listItemStore.update({ listId: this.$route.params.listId, listItemId, listItem: updatedItem })
   }
 }
 </script>

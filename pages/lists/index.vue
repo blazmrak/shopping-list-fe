@@ -6,7 +6,7 @@
           <v-list-item
             :key="item.id"
             link
-            :to="'/lists/' + item.id + '/required'"
+            :to="`/lists/${item.id}`"
             class="grey lighten-3"
           >
             <v-list-item-title>{{ item.name }}</v-list-item-title>

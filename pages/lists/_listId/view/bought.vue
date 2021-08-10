@@ -67,7 +67,7 @@ import { itemStore } from '~/store/items'
 
 @Component
 export default class Bought extends Vue {
-  edit: ListItem = null
+  edit: ListItem | null = null
 
   get bought () {
     return listItemStore.bought
@@ -85,11 +85,11 @@ export default class Bought extends Vue {
     this.edit = null
   }
 
-  isBeingEdited (item) {
+  isBeingEdited (item: ListItem) {
     return item.id === this.edit?.id
   }
 
-  isNotBeingEdited (item) {
+  isNotBeingEdited (item: ListItem) {
     return item.id !== this.edit?.id
   }
 
@@ -100,13 +100,13 @@ export default class Bought extends Vue {
       boughtAt: null
     }
 
-    listItemStore.updateItem({ listId: this.$route.params.listId, listItemId, listItem: updatedItem })
+    listItemStore.update({ listId: this.$route.params.listId, listItemId, listItem: updatedItem })
   }
 
   updateAndArchive (item: ListItem) {
     item.status = 'archived'
 
-    listItemStore.updateItem({
+    listItemStore.update({
       listId: this.$route.params.listId,
       listItemId: item.id,
       listItem: item

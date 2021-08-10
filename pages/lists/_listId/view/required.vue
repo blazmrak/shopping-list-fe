@@ -9,7 +9,7 @@
           <v-list-item v-if="!item.hidden" :key="item.id" two-line class="grey lighten-3">
             <v-list-item-action class="align-self-center">
               <v-row>
-                <v-btn fab small class="error mx-2">
+                <v-btn fab small class="error mx-2" @click="remove(item.id)">
                   <v-icon>
                     mdi-delete
                   </v-icon>
@@ -35,6 +35,7 @@
         </template>
       </v-list>
     </v-col>
+    <CreateDialog :show="createDialogShow" @opened="createDialogOpened" />
   </v-row>
 </template>
 
@@ -42,9 +43,14 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { ListItem, listItemStore } from '~/store/listItems'
 import { itemStore } from '~/store/items'
+import CreateDialog from '~/components/listItems/CreateDialog.vue'
 
-@Component
+@Component({
+  components: { CreateDialog }
+})
 export default class Cart extends Vue {
+  createDialogShow = false
+
   get required () {
     return listItemStore.required
   }
@@ -60,7 +66,7 @@ export default class Cart extends Vue {
       boughtAt: new Date()
     }
 
-    listItemStore.updateItem({ listId: this.$route.params.listId, listItemId, listItem: updatedItem })
+    listItemStore.update({ listId: this.$route.params.listId, listItemId, listItem: updatedItem })
   }
 
   hide (listItem: ListItem) {
@@ -68,7 +74,15 @@ export default class Cart extends Vue {
       ...listItem,
       hidden: true
     }
-    listItemStore.updateListItem(updatedItem)
+    listItemStore.updateLocal(updatedItem)
+  }
+
+  createDialogOpened (open: boolean) {
+    this.createDialogShow = open
+  }
+
+  remove (listItemId: string) {
+    listItemStore.delete({ listItemId, listId: this.$route.params.listId })
   }
 }
 </script>
