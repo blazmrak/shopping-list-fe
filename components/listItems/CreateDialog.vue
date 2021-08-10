@@ -1,8 +1,8 @@
 <template>
   <v-dialog
-    v-model="newListItemDialog"
-    persistent
+    :value="show"
     max-width="600px"
+    @input="opened"
   >
     <template #activator="{ on, attrs }">
       <v-btn
@@ -11,7 +11,7 @@
         bottom
         right
         absolute
-        class="mb-15"
+        style="margin-bottom: 104px"
         v-bind="attrs"
         v-on="on"
       >
@@ -48,7 +48,7 @@
         <v-btn
           color="blue darken-1"
           text
-          @click="newListItemDialog = false"
+          @click="opened(false)"
         >
           Close
         </v-btn>
@@ -65,16 +65,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
-import { listItemStore } from '~/store/listItems'
+import { Component, mixins } from 'nuxt-property-decorator'
+import { ListItem, listItemStore } from '~/store/listItems'
+import { itemStore } from '~/store/items'
+import { BaseDialog } from '~/components/dialog/BaseDialog'
 
 @Component
-export default class CreateDialog extends Vue {
-  newListItemDialog = false
-  newItem = {}
+export default class CreateDialog extends mixins(BaseDialog) {
+  newItem: ListItem = {} as ListItem
+
+  get items () {
+    return itemStore.items
+  }
 
   createNewListItem () {
-    listItemStore.createNewItem({
+    listItemStore.create({
       listId: this.$route.params.listId,
       listItem: this.newItem
     })
