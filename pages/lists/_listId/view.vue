@@ -15,17 +15,7 @@
 
       <NuxtChild />
 
-      <v-bottom-navigation
-        grow
-        absolute
-        hide-on-scroll
-        color="primary"
-      >
-        <v-btn :to="`/lists/${$route.params.listId}/view`">
-          <span>List</span>
-          <v-icon>mdi-playlist-edit</v-icon>
-        </v-btn>
-      </v-bottom-navigation>
+      <BottomNavigation />
     </v-col>
   </v-row>
 </template>
@@ -35,9 +25,10 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import { itemStore } from '~/store/items'
 import { listItemStore } from '~/store/listItems'
 import CreateDialog from '~/components/listItems/CreateDialog.vue'
+import BottomNavigation from '~/components/listItems/BottomNavigation.vue'
 
 @Component({
-  components: { CreateDialog }
+  components: { BottomNavigation, CreateDialog }
 })
 export default class ListItems extends Vue {
   beforeRouteEnter (to, _, next) {

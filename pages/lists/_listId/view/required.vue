@@ -35,22 +35,21 @@
         </template>
       </v-list>
     </v-col>
-    <CreateDialog :show="createDialogShow" @opened="createDialogOpened" />
+    <CreateDialog :show="showDialog" @opened="opened" />
   </v-row>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, mixins } from 'nuxt-property-decorator'
 import { ListItem, listItemStore } from '~/store/listItems'
 import { itemStore } from '~/store/items'
 import CreateDialog from '~/components/listItems/CreateDialog.vue'
+import { BaseDialogContainer } from '~/components/dialog/BaseDialogContainer'
 
 @Component({
   components: { CreateDialog }
 })
-export default class Cart extends Vue {
-  createDialogShow = false
-
+export default class Cart extends mixins(BaseDialogContainer) {
   get required () {
     return listItemStore.required
   }
@@ -75,10 +74,6 @@ export default class Cart extends Vue {
       hidden: true
     }
     listItemStore.updateLocal(updatedItem)
-  }
-
-  createDialogOpened (open: boolean) {
-    this.createDialogShow = open
   }
 
   remove (listItemId: string) {

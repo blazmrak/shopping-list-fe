@@ -1,8 +1,15 @@
-import { getModule, Module, MutationAction, VuexModule, VuexMutation } from 'nuxt-property-decorator'
+import {
+  getModule,
+  Module,
+  MutationAction,
+  VuexAction,
+  VuexModule,
+  VuexMutation
+} from 'nuxt-property-decorator'
 import { $axios } from '~/assets/api'
 import { store } from '~/store'
 
-interface Item {
+export interface Item {
   id: string
   ownerId: string
   name: string
@@ -27,9 +34,37 @@ export default class ItemStore extends VuexModule {
     }
   }
 
+  @VuexAction({ commit: 'addItemLocal' })
+  async create (param: { listId: string; item: Item }) {
+    const itemResponse = await $axios.post(`/api/shopping-lists/${param.listId}/items`, param.item)
+
+    return itemResponse.data
+  }
+
+  @VuexAction({ commit: 'updateItemLocal' })
+  async update (param: { listId: string; itemId: string; item: Item }) {
+    const itemResponse = await $axios.put(`/api/shopping-lists/${param.listId}/items/${param.itemId}`, param.item)
+
+    return itemResponse.data
+  }
+
   @VuexMutation
   setLists (items: Item[]) {
     this._items = items
+  }
+
+  @VuexMutation
+  addItemLocal (item: Item) {
+    this._items.push(item)
+  }
+
+  @VuexMutation
+  updateItemLocal (updatedItem: Item) {
+    this._items = this._items.map((item) => {
+      if (item.id === updatedItem.id) { return updatedItem }
+
+      return item
+    })
   }
 }
 
