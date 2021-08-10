@@ -82,7 +82,7 @@ const config = {
         scheme: 'refresh',
         token: {
           property: 'accessToken',
-          maxAge: 1800
+          maxAge: 60 * 60 * 24
         },
         refreshToken: {
           property: 'accessToken',
