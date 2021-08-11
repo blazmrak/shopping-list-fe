@@ -22,6 +22,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { RouteConfig } from '@nuxt/types/config/router'
 import { itemStore } from '~/store/items'
 import { listItemStore } from '~/store/listItems'
 import CreateDialog from '~/components/listItems/CreateDialog.vue'
@@ -31,7 +32,7 @@ import BottomNavigation from '~/components/listItems/BottomNavigation.vue'
   components: { BottomNavigation, CreateDialog }
 })
 export default class ListItems extends Vue {
-  beforeRouteEnter (to, _, next) {
+  beforeRouteEnter (to: RouteConfig, _: RouteConfig, next: Function) {
     if (!to.path.includes('required')) {
       next(to.path + '/required')
     } else {
