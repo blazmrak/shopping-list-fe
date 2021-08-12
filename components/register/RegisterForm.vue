@@ -1,16 +1,31 @@
 <template>
-  <div class="flex justify-center">
-    <form class="flex flex-col space-y-3 w-full" @submit.prevent="submitted">
-      <v-text-field v-model="username" label="Email" />
-      <v-text-field v-model="password" type="password" label="Password" />
-      <v-text-field v-model="confirmPassword" type="password" label="Confirm Password" />
-      <div class="flex justify-center">
-        <v-btn type="submit" class="bg-purple-600 w-16">
-          Register
-        </v-btn>
-      </div>
-    </form>
-  </div>
+  <v-form
+    ref="form"
+    class="content-fill"
+    lazy-validation
+    @submit.prevent="submitted"
+  >
+    <v-text-field
+      v-model="username"
+      label="Email"
+      required
+    />
+    <v-text-field
+      v-model="password"
+      type="password"
+      label="Password"
+      required
+    />
+    <v-text-field
+      v-model="confirmPassword"
+      type="password"
+      label="Confirm Password"
+      required
+    />
+    <v-btn type="submit">
+      Register
+    </v-btn>
+  </v-form>
 </template>
 
 <script lang="ts">
