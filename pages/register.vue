@@ -25,7 +25,7 @@ import RegisterForm from '~/components/register/RegisterForm.vue'
   components: { RegisterForm }
 })
 export default class Register extends Vue {
-  async login (value: any) {
+  async register (value: any) {
     try {
       await this.$axios.post('api/users/register', value)
       this.$toast.success('Account created', { duration: 1000, position: 'top-center' })
