@@ -9,7 +9,7 @@
     </v-row>
     <v-row justify="center">
       <v-col lg="4" md="6" sm="12">
-        <RegisterForm @submitted="login" />
+        <RegisterForm @submitted="register" />
       </v-col>
     </v-row>
   </v-col>

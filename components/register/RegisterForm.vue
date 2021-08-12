@@ -1,8 +1,5 @@
 <template>
   <v-form
-    ref="form"
-    class="content-fill"
-    lazy-validation
     @submit.prevent="submitted"
   >
     <v-text-field
