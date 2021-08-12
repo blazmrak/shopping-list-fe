@@ -1,14 +1,18 @@
 <template>
-  <div class="flex justify-center">
-    <div class="flex flex-col content-start w-3/4 max-w-md mt-16">
-      <div class="w-full">
-        <img src="/img/login/login2.png">
-      </div>
-      <div>
+  <v-col>
+    <v-row justify="center">
+      <v-col cols="4">
+        <v-img
+          lazy-src="/img/login/login2.png"
+        />
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col lg="4" md="6" sm="12">
         <RegisterForm @submitted="login" />
-      </div>
-    </div>
-  </div>
+      </v-col>
+    </v-row>
+  </v-col>
 </template>
 
 <script lang="ts">
