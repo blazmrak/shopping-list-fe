@@ -47,7 +47,7 @@ class ListItemStore extends VuexModule {
   }
 
   @MutationAction({ mutate: ['_listItems'] })
-  async getAll (listId: string) {
+  async fetchAll (listId: string) {
     const listItems = (await $axios.get(`/api/shopping-lists/${listId}/list-items`)).data
 
     return {

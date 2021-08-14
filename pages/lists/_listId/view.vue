@@ -41,8 +41,10 @@ export default class ListItems extends Vue {
   }
 
   async fetch ({ params }: { params: any }) {
-    await itemStore.fetchItems(params.listId)
-    await listItemStore.getAll(params.listId)
+    await Promise.all([
+      itemStore.fetchItems(params.listId),
+      listItemStore.fetchAll(params.listId)
+    ])
   }
 
   get items () {
