@@ -22,7 +22,7 @@
                 <v-list-item-subtitle>Cost: {{ item.cost }}€</v-list-item-subtitle>
               </template>
               <template v-if="isBeingEdited(item)">
-                <v-form @submit.stop.prevent="updateAndArchive(edit)">
+                <v-form @submit.prevent="updateAndArchive(edit)">
                   <v-text-field v-model="edit.quantity" autofocus label="Quantity" />
                   <v-text-field
                     v-model="edit.cost"

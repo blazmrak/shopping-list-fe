@@ -67,7 +67,7 @@ const config = {
 
   proxy: {
     '/api/': {
-      target: process.env.API_BASE_URL || 'http://localhost:8080/shopping-list/',
+      target: process.env.API_BASE_URL || 'http://localhost:8080/',
       pathRewrite: { '^/api/': process.env.API_VERSION || '/v1/' }
     }
   },

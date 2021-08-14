@@ -33,7 +33,7 @@ import BottomNavigation from '~/components/listItems/BottomNavigation.vue'
 })
 export default class ListItems extends Vue {
   beforeRouteEnter (to: RouteConfig, _: RouteConfig, next: Function) {
-    if (!to.path.includes('required')) {
+    if (to.path.endsWith('/view')) {
       next(to.path + '/required')
     } else {
       next()
