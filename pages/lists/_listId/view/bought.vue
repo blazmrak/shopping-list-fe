@@ -29,16 +29,28 @@
                     label="Cost"
                     type="number"
                   />
-                  <v-row justify="end" class="ma-0">
-                    <div class="pr-4">
-                      <v-btn fab small class="error" @click="stopEdit()">
-                        <v-icon>mdi-close</v-icon>
+                  <v-row justify="space-between" class="ma-0">
+                    <div class="pl-4">
+                      <v-btn fab small @click="normalize()">
+                        <v-icon color="grey darken-3">
+                          <!-- TODO find a reasonable icon-->
+                          <!-- mdi-scale-balance-->
+                          <!-- mdi-ab-testing-->
+                          mdi-scale
+                        </v-icon>
                       </v-btn>
                     </div>
-                    <div class="pr-4">
-                      <v-btn fab small class="primary" type="submit">
-                        <v-icon>mdi-check</v-icon>
-                      </v-btn>
+                    <div style="display: flex">
+                      <div class="pr-4">
+                        <v-btn fab small class="error" @click="stopEdit()">
+                          <v-icon>mdi-close</v-icon>
+                        </v-btn>
+                      </div>
+                      <div class="pr-4">
+                        <v-btn fab small class="primary" type="submit">
+                          <v-icon>mdi-check</v-icon>
+                        </v-btn>
+                      </div>
                     </div>
                   </v-row>
                 </v-form>
@@ -91,6 +103,20 @@ export default class Bought extends Vue {
 
   isNotBeingEdited (item: ListItem) {
     return item.id !== this.edit?.id
+  }
+
+  canNormalize () {
+    return this.edit?.cost !== undefined && this.edit.quantity !== undefined
+  }
+
+  normalize () {
+    if (this.edit?.cost && this.edit.quantity) {
+      let costPerUnit = this.edit.cost / this.edit.quantity
+      costPerUnit *= 100
+      costPerUnit = Math.round(costPerUnit)
+      costPerUnit /= 100
+      this.edit.cost = costPerUnit
+    }
   }
 
   moveToRequired (listItemId: string, listItem: ListItem) {
