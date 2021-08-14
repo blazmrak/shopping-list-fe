@@ -9,7 +9,7 @@ const config = {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'shopping-list-fe',
+    title: 'Kostko',
     htmlAttrs: {
       lang: 'en'
     },
@@ -19,7 +19,8 @@ const config = {
       { hid: 'description', name: 'description', content: '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      // { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/icon.png' }
     ]
   },
 
@@ -40,9 +41,9 @@ const config = {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    '@nuxtjs/pwa'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -117,8 +118,25 @@ const config = {
       home: '/lists/'
     }
   },
+
   vuetify: {
     treeShake: true
+  },
+
+  pwa: {
+    meta: {
+      name: 'Kostko',
+      author: 'Blaz Mrak'
+    },
+    manifest: {
+      name: 'Kostko',
+      short_name: 'Kostko',
+      description: 'Personal finance tracker',
+      useWebmanifestExtension: false
+    },
+    workbox: {
+      dev: process.env.NODE_ENV !== 'production'
+    }
   }
 }
 

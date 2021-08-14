@@ -71,7 +71,7 @@
 import { Component, mixins } from 'nuxt-property-decorator'
 import { Item, itemStore } from '~/store/items'
 import CreateDialog from '~/components/listItems/items/CreateDialog.vue'
-import { BaseDialogContainer } from '~/components/dialog/BaseDialogContainer'
+import BaseDialogContainer from '~/components/dialog/BaseDialogContainer'
 import BottomNavigation from '~/components/listItems/BottomNavigation.vue'
 
 @Component({
