@@ -79,6 +79,12 @@ import { itemStore } from '~/store/items'
 
 @Component
 export default class Bought extends Vue {
+  head () {
+    return {
+      title: 'Kostko - Bought items'
+    }
+  }
+
   edit: ListItem | null = null
 
   get bought () {

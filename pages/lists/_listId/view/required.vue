@@ -44,7 +44,7 @@ import { Component, mixins } from 'nuxt-property-decorator'
 import { ListItem, listItemStore } from '~/store/listItems'
 import { itemStore } from '~/store/items'
 import CreateDialog from '~/components/listItems/CreateDialog.vue'
-import { BaseDialogContainer } from '~/components/dialog/BaseDialogContainer'
+import BaseDialogContainer from '~/components/dialog/BaseDialogContainer'
 
 @Component({
   components: { CreateDialog }

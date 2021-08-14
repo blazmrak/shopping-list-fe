@@ -68,7 +68,7 @@
 import { Component, mixins } from 'nuxt-property-decorator'
 import { ListItem, listItemStore } from '~/store/listItems'
 import { itemStore } from '~/store/items'
-import { BaseDialog } from '~/components/dialog/BaseDialog'
+import BaseDialog from '~/components/dialog/BaseDialog'
 
 @Component
 export default class CreateDialog extends mixins(BaseDialog) {

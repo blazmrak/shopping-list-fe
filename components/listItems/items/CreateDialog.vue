@@ -60,7 +60,7 @@
 <script lang="ts">
 import { Component, mixins } from 'nuxt-property-decorator'
 import { Item, itemStore } from '~/store/items'
-import { BaseDialog } from '~/components/dialog/BaseDialog'
+import BaseDialog from '~/components/dialog/BaseDialog'
 
 @Component
 export default class CreateDialog extends mixins(BaseDialog) {

@@ -1,7 +1,7 @@
 import { Component, Emit, Prop, Vue } from 'nuxt-property-decorator'
 
 @Component
-export class BaseDialog extends Vue {
+export default class BaseDialog extends Vue {
   @Prop({ default: () => false, type: Boolean })
   show!: boolean
 
