@@ -6,14 +6,14 @@
       </div>
       <v-list three-line>
         <template v-for="item in bought">
-          <v-list-item :key="item.id" two-line class="grey lighten-3">
-            <v-list-item-avatar v-if="isNotBeingEdited(item)" class="align-self-center">
-              <v-btn fab class="error" @click="moveToRequired(item.id, item)">
+          <v-list-item :key="item.id" three-line>
+            <v-list-item-action v-if="isNotBeingEdited(item)" class="align-self-center">
+              <v-btn fab small class="error" @click="moveToRequired(item.id, item)">
                 <v-icon>
                   mdi-arrow-left
                 </v-icon>
               </v-btn>
-            </v-list-item-avatar>
+            </v-list-item-action>
 
             <v-list-item-content class="self-justify-center">
               <v-list-item-title>{{ getItem(item.itemId).name }}</v-list-item-title>

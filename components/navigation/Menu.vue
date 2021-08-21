@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :value="show" app @input="setShow">
+  <v-navigation-drawer right app :value="show" @input="setShow">
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="text-h6">

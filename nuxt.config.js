@@ -135,6 +135,7 @@ const config = {
       useWebmanifestExtension: false
     },
     workbox: {
+      enabled: process.env.NODE_ENV === 'production',
       dev: process.env.NODE_ENV !== 'production'
     }
   }

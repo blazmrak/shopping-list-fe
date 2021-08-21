@@ -7,7 +7,6 @@
             :key="item.id"
             link
             :to="`/lists/${item.id}`"
-            class="grey lighten-3"
           >
             <v-list-item-title>{{ item.name }}</v-list-item-title>
             <v-list-item-action>
@@ -21,21 +20,33 @@
         </template>
       </v-list>
     </v-col>
+
+    <CreateDialog :show="showCreateDialog" @opened="isOpen" />
   </v-row>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import { listStore } from '~/store/lists'
+import CreateDialog from '~/components/lists/CreateDialog.vue'
 
-@Component({ middleware: 'auth' })
+@Component({
+  components: { CreateDialog },
+  middleware: 'auth'
+})
 export default class Lists extends Vue {
+  showCreateDialog = false
+
   async fetch () {
     await listStore.fetchLists()
   }
 
   get shoppingLists () {
     return listStore.lists
+  }
+
+  isOpen (open: boolean) {
+    this.showCreateDialog = open
   }
 }
 </script>

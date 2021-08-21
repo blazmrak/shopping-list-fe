@@ -8,7 +8,6 @@
         <template v-for="item in items">
           <v-list-item
             :key="item.id"
-            class="grey lighten-3"
           >
             <v-list-item-action
               v-if="isNotBeingEdited(item)"
@@ -72,7 +71,7 @@ import { Component, mixins } from 'nuxt-property-decorator'
 import { Item, itemStore } from '~/store/items'
 import CreateDialog from '~/components/listItems/items/CreateDialog.vue'
 import BaseDialogContainer from '~/components/dialog/BaseDialogContainer'
-import BottomNavigation from '~/components/listItems/BottomNavigation.vue'
+import BottomNavigation from '~/components/navigation/BottomNavigation.vue'
 
 @Component({
   components: { BottomNavigation, CreateDialog }

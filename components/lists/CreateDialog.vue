@@ -10,8 +10,8 @@
         large
         bottom
         right
-        fixed
-        class="mb-15"
+        absolute
+        style="margin-bottom: 104px"
         v-bind="attrs"
         v-on="on"
       >
@@ -20,7 +20,7 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="text-h5">New Item</span>
+        <span class="text-h5">New List</span>
       </v-card-title>
       <v-card-text>
         <v-row>
@@ -28,17 +28,10 @@
             cols="12"
             sm="6"
           >
-            <v-autocomplete
-              v-model="newItem.itemId"
-              :items="items"
-              label="Items"
-              item-text="name"
-              item-value="id"
-            />
             <v-text-field
-              v-model="newItem.quantity"
-              label="Quantity"
-              type="number"
+              v-model="newList.name"
+              label="Name"
+              type="text"
             />
           </v-col>
         </v-row>
@@ -55,7 +48,7 @@
         <v-btn
           color="blue darken-1"
           text
-          @click="createNewListItem()"
+          @click="createNewList()"
         >
           Save
         </v-btn>
@@ -66,27 +59,23 @@
 
 <script lang="ts">
 import { Component, mixins } from 'nuxt-property-decorator'
-import { ListItem, listItemStore } from '~/store/listItems'
-import { itemStore } from '~/store/items'
 import BaseDialog from '~/components/dialog/BaseDialog'
+import { List, listStore } from '~/store/lists'
 
 @Component
 export default class CreateDialog extends mixins(BaseDialog) {
-  newItem: ListItem = {} as ListItem
+  newList: List = {} as List
 
-  get items () {
-    return itemStore.items
-  }
-
-  createNewListItem () {
-    listItemStore.create({
-      listId: this.$route.params.listId,
-      listItem: this.newItem
+  async createNewList () {
+    const list = await listStore.create({
+      list: this.newList
     })
+
+    await this.$router.push(`/lists/${list.id}/view`)
   }
 }
 </script>
 
-<style lang="postcss" scoped>
+<style lang="css" scoped>
 
 </style>

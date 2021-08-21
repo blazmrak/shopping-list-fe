@@ -1,21 +1,7 @@
 <template>
   <v-row justify="center">
     <v-col sm="12" md="8" lg="6">
-      <v-tabs fixed-tabs>
-        <v-tab :to="`required`">
-          <v-icon>mdi-cart</v-icon>
-        </v-tab>
-        <v-tab :to="`bought`">
-          <v-icon>mdi-receipt</v-icon>
-        </v-tab>
-        <v-tab :to="`archived`">
-          <v-icon>mdi-check-circle</v-icon>
-        </v-tab>
-      </v-tabs>
-
       <NuxtChild />
-
-      <BottomNavigation />
     </v-col>
   </v-row>
 </template>
@@ -26,7 +12,8 @@ import { RouteConfig } from '@nuxt/types/config/router'
 import { itemStore } from '~/store/items'
 import { listItemStore } from '~/store/listItems'
 import CreateDialog from '~/components/listItems/CreateDialog.vue'
-import BottomNavigation from '~/components/listItems/BottomNavigation.vue'
+import BottomNavigation from '~/components/navigation/BottomNavigation.vue'
+import { tabsStore } from '~/store/tabs'
 
 @Component({
   components: { BottomNavigation, CreateDialog }
@@ -41,14 +28,20 @@ export default class ListItems extends Vue {
   }
 
   async fetch ({ params }: { params: any }) {
+    tabsStore.setTabs([
+      { icon: 'mdi-cart', to: 'required' },
+      { icon: 'mdi-receipt', to: 'bought' },
+      { icon: 'mdi-check-circle', to: 'archived' }
+    ])
+
     await Promise.all([
       itemStore.fetchItems(params.listId),
       listItemStore.fetchAll(params.listId)
     ])
   }
 
-  get items () {
-    return itemStore.items
+  destroyed () {
+    tabsStore.reset()
   }
 }
 </script>

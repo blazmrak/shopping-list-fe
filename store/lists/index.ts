@@ -1,8 +1,15 @@
-import { getModule, Module, MutationAction, VuexModule, VuexMutation } from 'nuxt-property-decorator'
+import {
+  getModule,
+  Module,
+  MutationAction,
+  VuexAction,
+  VuexModule,
+  VuexMutation
+} from 'nuxt-property-decorator'
 import { $axios } from '~/assets/api'
 import { store } from '~/store'
 
-interface List {
+export interface List {
   id: string
   ownerId: string
   permissions: string[]
@@ -17,6 +24,13 @@ class ListStore extends VuexModule {
     return this._lists
   }
 
+  @VuexAction({ commit: 'addListLocal' })
+  async create (param: { list: List }) {
+    const listResult = await $axios.post('/api/shopping-lists', param.list)
+
+    return listResult.data
+  }
+
   @MutationAction({ mutate: ['_lists'] })
   async fetchLists () {
     return {
@@ -27,6 +41,11 @@ class ListStore extends VuexModule {
   @VuexMutation
   setLists (lists: List[]) {
     this._lists = lists
+  }
+
+  @VuexMutation
+  addListLocal (list: List) {
+    this._lists.push(list)
   }
 }
 

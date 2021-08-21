@@ -6,7 +6,7 @@
       </div>
       <v-list>
         <template v-for="item in archived">
-          <v-list-item v-if="!item.hidden" :key="item.id" two-line class="grey lighten-3">
+          <v-list-item v-if="!item.hidden" :key="item.id" three-line>
             <v-list-item-action class="align-self-center">
               <v-row>
                 <v-btn fab small class="error mx-2" @click="moveToCart(item.id, item)">
